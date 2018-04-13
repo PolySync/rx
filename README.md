@@ -1,5 +1,5 @@
 <!--
-© 2018, Devin Smith <dsmith@polysync.io> Nathan Äschbacher <naschbacher@polysync.io>
+© 2018, Devin Smith <dsmith@polysync.io>, Nathan Äschbacher <naschbacher@polysync.io>
 
 This file is part of Rx
 
@@ -32,7 +32,7 @@ is also a valid Rx file and in the context of Rx, describes a document that must
 match identically. In addition to this **Literal** type of specification, Rx
 provides the three tokens `-!!-`, `-??-`, and `-""-` which indicate **Mandatory**,
 **Optional**, and **Repeatable** respectively. CommonMark conceptualizes a markdown
-document as consisting block and inline elements and the exact meaning of the Rx
+document as consisting of block and inline elements and the exact meaning of the Rx
 tokens is dependent on the type of Markdown element it is used in conjunction
 with.
 
@@ -140,7 +140,7 @@ with.
     The dentist because our teeth are full of cavities.
     ```
 
-    In this case, the Mandatory token in the heading has not been satisfied.
+    > In this case, the Mandatory token in the heading has not been satisfied.
 
     #### Matching Optional Tokens
 
@@ -165,9 +165,9 @@ with.
     ``` markdown
     Seeking a marginally qualified applicant for our remote call center.
     ```
-    An inline Optional token cannot by itself cause a mismatch since it can match
-    any textual content or nothing. In this case the mismatch is triggered by the
-    Literal content `offices` being omitted.
+    > An inline Optional token cannot by itself cause a mismatch since it can match
+    > any textual content or nothing. In this case the mismatch is triggered by the
+    > Literal content `offices` being omitted.
 
     #### Matching Links
 
@@ -193,13 +193,13 @@ with.
     Please [visit](https:://.polysync.io) us on the web!
     ```
 
-    Rejected because there was no prefix specified in the uri.
+    > Rejected because there was no prefix specified in the uri.
 
     ``` markdown
     Please [visit](http:://scam.polysync.io) us on the web!
     ```
 
-    Rejected because the `s` was omitted from the protocol portion of the uri.
+    > Rejected because the `s` was omitted from the protocol portion of the uri.
 
 
 *
@@ -289,8 +289,8 @@ with.
 
     Is tiggers are wonderful things!
     ```
-    Rejected because although the text of the first block matches, it is not
-    part of the same type of block element.
+    > Rejected because although the text of the first block matches, it is not
+    > part of the same type of block element.
 
     ``` markdown
     # The wonderful thing about tiggers
@@ -301,7 +301,7 @@ with.
 
     Their bottoms are made out of springs!
     ```
-    Rejected because of superflous paragraphs included at the end.
+    > Rejected because of superflous paragraphs included at the end.
 
 
     #### Matching Optional Block Level tokens
@@ -353,9 +353,9 @@ with.
 
     TLDR;
     ```
-    Optional Block Level Tokens can only cause a mismatch if they are present, but
-    contain some other inline or block elements that exhibit a mismatch. In this
-    case, the Mandatory inline token was not satisfied.
+    > Optional Block Level Tokens can only cause a mismatch if they are present, but
+    > contain some other inline or block elements that exhibit a mismatch. In this
+    > case, the Mandatory inline token was not satisfied.
 
     #### Combining Block Level and Inline tokens
 
@@ -453,7 +453,7 @@ with.
     ``` markdown
     -!!- is my favorite color.
     ```
-    **Wrong**. The token is interpreted as a block element token.
+    > **Wrong**. The token is interpreted as a block element token.
 
     ##### Matches
 
@@ -472,8 +472,8 @@ with.
     ``` markdown
     -!!--!!- is my favorite color.
     ```
-    **Correct**. The first token is interpreted as a block element token, while the second
-    is interpreted as a prompt for content.
+    > **Correct**. The first token is interpreted as a block element token, while the second
+    > is interpreted as a prompt for content.
 
     ##### Matches
 
@@ -496,9 +496,8 @@ with.
     -!!-
     ~~~
     ```
-
-    **Wrong**. The language info for the code block will not be interpreted
-    correctly.
+    > **Wrong**. The language info for the code block will not be interpreted
+    > correctly.
 
     ##### Rx
 
@@ -507,8 +506,7 @@ with.
     -!!-
     ~~~
     ```
-
-    **Correct**. Indicates a mandatory code block with rust syntax.
+    > **Correct**. Indicates a mandatory code block with rust syntax.
 
     ##### Accepts
 
@@ -546,11 +544,11 @@ with.
 
     Now this is a story all about how my life got flipped-turned upside down <!--Tell what happened to your life-->
     ```
-    Rejected because the comment in the Rx file is ignored, so the comment in the
-    document will be treated as superfluous content.
+    > Rejected because the comment in the Rx file is ignored, so the comment in the
+    > document will be treated as superfluous content.
 
 # License
 
-© 2018, Devin Smith <dsmith@polysync.io> Nathan Äschbacher <naschbacher@polysync.io>
+© 2018, Devin Smith <dsmith@polysync.io>, Nathan Äschbacher <naschbacher@polysync.io>
 
 [GPL version 3](https://github.com/PolySync/rx/LICENSE)

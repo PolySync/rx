@@ -29,9 +29,9 @@ document definition.
 [CommonMark](https://spec.commonmark.org/0.28/) is a formal specification of
 Markdown and is the specific standard that Rx extends. A valid CommonMark file
 is also a valid Rx file and in the context of Rx, describes a document that must
-match identically. In addition to this 'Literal' type of specification, Rx
-provides the three tokens `-!!-`, `-??-`, and `-""-` which indicate 'Mandatory',
-'Optional', and 'Repeatable' respectively. CommonMark conceptualizes a markdown
+match identically. In addition to this **Literal** type of specification, Rx
+provides the three tokens `-!!-`, `-??-`, and `-""-` which indicate **Mandatory**,
+**Optional**, and **Repeatable** respectively. CommonMark conceptualizes a markdown
 document as consisting block and inline elements and the exact meaning of the Rx
 tokens is dependent on the type of Markdown element it is used in conjunction
 with.
@@ -202,350 +202,352 @@ with.
     Rejected because the `s` was omitted from the protocol portion of the uri.
 
 
-### Block Elements
+*
+    ### Block Elements
 
-Block elements contain inline elements and in some cases other block elements.
-They consist of
-* List Items
-* Block Quotes
-* Paragraphs
-* Headings
-* Code Blocks
-* HTML Blocks
+    Block elements contain inline elements and in some cases other block elements.
+    They consist of
+    * List Items
+    * Block Quotes
+    * Paragraphs
+    * Headings
+    * Code Blocks
+    * HTML Blocks
 
-If the first textual content of a block element begins with an Rx token, then
-that token is considered a 'Block Level Token' and its meaning applies to the
-entire scope of that block.
+    If the first textual content of a block element begins with an Rx token, then
+    that token is considered a 'Block Level Token' and its meaning applies to the
+    entire scope of that block.
 
-* **Literal**
-    Strictly speaking, block elements do not directly contain Literals since all
-    textual content is conceptualized as being within inline elements. That
-    being said, the Literal content appearing within block elements must be
-    matched identically just like in the rule for inline Literal elements, but
-    the requirement of its presence or absence can be specified the presence of
-    the following Block Level Tokens.
+    * **Literal**
+        Strictly speaking, block elements do not directly contain Literals since all
+        textual content is conceptualized as being within inline elements. That
+        being said, the Literal content appearing within block elements must be
+        matched identically just like in the rule for inline Literal elements, but
+        the requirement of its presence or absence can be specified the presence of
+        the following Block Level Tokens.
 
-* `-!!-`
-    **Mandatory**
+    * `-!!-`
+        **Mandatory**
 
-    - Element contains additional inline content or block elements.
-        A block element of the same type **must** appear in this position in the
-        matching document. In order to be considered a match, all inline and and
-        block elements contained within the scope of this element must also be
-        matched according to their relevant matching rules.
-    - Element does not contain any additional content.
-        A block element of the same type **must** appear in this position in the
-        document however, the matching element may contain any arbitrary inline
-        and/or block elements.
+        - Element contains additional inline content or block elements.
+            A block element of the same type **must** appear in this position in the
+            matching document. In order to be considered a match, all inline and and
+            block elements contained within the scope of this element must also be
+            matched according to their relevant matching rules.
+        - Element does not contain any additional content.
+            A block element of the same type **must** appear in this position in the
+            document however, the matching element may contain any arbitrary inline
+            and/or block elements.
 
-* `-??-`
-    **Optional**
+    * `-??-`
+        **Optional**
 
-    - Element contains additional inline content or block elements.
-        A block element of the same type **may** appear in this position in the
-        matching document but is not necessary. If an element does appear, in
-        order to be considerer a match, all inline and and block elements
-        contained within the scope of this element must also be matched
-        according to their relevant matching rules.
-    - Element does not contain any additional content.
-        A block element of the same type **may** appear in this position in the
-        document, but is not necessary. If an element does appear, it may
-        contain any arbitrary inline and/or block elements and still be
-        considered a match.
+        - Element contains additional inline content or block elements.
+            A block element of the same type **may** appear in this position in the
+            matching document but is not necessary. If an element does appear, in
+            order to be considerer a match, all inline and and block elements
+            contained within the scope of this element must also be matched
+            according to their relevant matching rules.
+        - Element does not contain any additional content.
+            A block element of the same type **may** appear in this position in the
+            document, but is not necessary. If an element does appear, it may
+            contain any arbitrary inline and/or block elements and still be
+            considered a match.
 
-* `-""-`
-    **Repeatable**
+    * `-""-`
+        **Repeatable**
 
-    This token must appear in a block element that does not contain any other
-    block or inline elements and whose type matches the previous
-    block element in the document. It matches any number of block elements that
-    match the previous block element.
+        This token must appear in a block element that does not contain any other
+        block or inline elements and whose type matches the previous
+        block element in the document. It matches any number of block elements that
+        match the previous block element.
 
-### Block Examples
+    ### Block Examples
 
-#### Matching Mandatory Block Level tokens
+    #### Matching Mandatory Block Level tokens
 
-##### Rx
+    ##### Rx
 
-``` markdown
-# -!!- The wonderful thing about tiggers
+    ``` markdown
+    # -!!- The wonderful thing about tiggers
 
--!!- Is tiggers are wonderful things!
-```
+    -!!- Is tiggers are wonderful things!
+    ```
 
-##### Matches
+    ##### Matches
 
-``` markdown
-# The wonderful thing about tiggers
+    ``` markdown
+    # The wonderful thing about tiggers
 
-Is tiggers are wonderful things!
-```
+    Is tiggers are wonderful things!
+    ```
 
-##### Rejects
+    ##### Rejects
 
-``` markdown
-The wonderful thing about tiggers
+    ``` markdown
+    The wonderful thing about tiggers
 
-Is tiggers are wonderful things!
-```
-Rejected because although the text of the first block matches, it is not
-part of the same type of block element.
+    Is tiggers are wonderful things!
+    ```
+    Rejected because although the text of the first block matches, it is not
+    part of the same type of block element.
 
-``` markdown
-# The wonderful thing about tiggers
+    ``` markdown
+    # The wonderful thing about tiggers
 
-Is tiggers are wonderful things!
+    Is tiggers are wonderful things!
 
-Their tops are made out of rubber
+    Their tops are made out of rubber
 
-Their bottoms are made out of springs!
-```
-Rejected because of superflous paragraphs included at the end.
+    Their bottoms are made out of springs!
+    ```
+    Rejected because of superflous paragraphs included at the end.
 
 
-#### Matching Optional Block Level tokens
+    #### Matching Optional Block Level tokens
 
-##### Rx
+    ##### Rx
 
-``` markdown
-Four score and seven years ago our fathers brought forth on this continent a new
- nation, conceived in Liberty, and dedicated to the proposition that all men are
- created equal.
+    ``` markdown
+    Four score and seven years ago our fathers brought forth on this continent a new
+     nation, conceived in Liberty, and dedicated to the proposition that all men are
+     created equal.
 
--??- Now we are engaged in a great civil war, testing whether that nation or any
-nation so conceived and so dedicated, can long endure....
+    -??- Now we are engaged in a great civil war, testing whether that nation or any
+    nation so conceived and so dedicated, can long endure....
 
--??- But, in a larger sense, we can not dedicate—we can not consecrate—we can
-not hallow—this ground....
+    -??- But, in a larger sense, we can not dedicate—we can not consecrate—we can
+    not hallow—this ground....
 
--??- TLDR; -!!-
-```
+    -??- TLDR; -!!-
+    ```
 
-##### Matches
+    ##### Matches
 
-``` markdown
-Four score and seven years ago our fathers brought forth on this continent a new
- nation, conceived in Liberty, and dedicated to the proposition that all men are
- created equal.
+    ``` markdown
+    Four score and seven years ago our fathers brought forth on this continent a new
+     nation, conceived in Liberty, and dedicated to the proposition that all men are
+     created equal.
 
-Now we are engaged in a great civil war, testing whether that nation or any
-nation so conceived and so dedicated, can long endure....
+    Now we are engaged in a great civil war, testing whether that nation or any
+    nation so conceived and so dedicated, can long endure....
 
-But, in a larger sense, we can not dedicate—we can not consecrate—we can
-not hallow—this ground....
-```
+    But, in a larger sense, we can not dedicate—we can not consecrate—we can
+    not hallow—this ground....
+    ```
 
-``` markdown
-Four score and seven years ago our fathers brought forth on this continent a new
- nation, conceived in Liberty, and dedicated to the proposition that all men are
- created equal.
+    ``` markdown
+    Four score and seven years ago our fathers brought forth on this continent a new
+     nation, conceived in Liberty, and dedicated to the proposition that all men are
+     created equal.
 
-TLDR; We must finish what we have started my dudes.
-```
+    TLDR; We must finish what we have started my dudes.
+    ```
 
-##### Rejects
+    ##### Rejects
 
-``` markdown
-Four score and seven years ago our fathers brought forth on this continent a new
- nation, conceived in Liberty, and dedicated to the proposition that all men are
- created equal.
+    ``` markdown
+    Four score and seven years ago our fathers brought forth on this continent a new
+     nation, conceived in Liberty, and dedicated to the proposition that all men are
+     created equal.
 
-TLDR;
-```
-Optional Block Level Tokens can only cause a mismatch if they are present, but
-contain some other inline or block elements that exhibit a mismatch. In this
-case, the Mandatory inline token was not satisfied.
+    TLDR;
+    ```
+    Optional Block Level Tokens can only cause a mismatch if they are present, but
+    contain some other inline or block elements that exhibit a mismatch. In this
+    case, the Mandatory inline token was not satisfied.
 
-#### Combining Block Level and Inline tokens
+    #### Combining Block Level and Inline tokens
 
-##### Rx
+    ##### Rx
 
-``` markdown
-A literal intro paragraph.
+    ``` markdown
+    A literal intro paragraph.
 
--!!- A mandatory paragraph about -!!-.
+    -!!- A mandatory paragraph about -!!-.
 
--""-
+    -""-
 
--??- An optional closing paragraph that must say this if present.
-```
+    -??- An optional closing paragraph that must say this if present.
+    ```
 
-##### Matches
+    ##### Matches
 
-``` markdown
-A literal mandatory intro paragraph.
+    ``` markdown
+    A literal mandatory intro paragraph.
 
-A mandatory paragraph about turnips.
+    A mandatory paragraph about turnips.
 
-A mandatory paragraph about bacon.
+    A mandatory paragraph about bacon.
 
-An optional closing paragraph that must say this if present.
-```
+    An optional closing paragraph that must say this if present.
+    ```
 
-``` markdown
-A literal intro paragraph.
+    ``` markdown
+    A literal intro paragraph.
 
-A mandatory paragraph about superheroes.
-```
+    A mandatory paragraph about superheroes.
+    ```
 
-##### Rejects
+    ##### Rejects
 
-``` markdown
-A literal intro paragraph.
-```
+    ``` markdown
+    A literal intro paragraph.
+    ```
 
-``` markdown
-A verbatim intro paragraph.
+    ``` markdown
+    A verbatim intro paragraph.
 
-An optional closing paragraph that must say this if present.
-```
+    An optional closing paragraph that must say this if present.
+    ```
 
-#### Matching Repeatable tokens
+    #### Matching Repeatable tokens
 
-##### Rx
+    ##### Rx
 
-``` markdown
-* First Item
-* -""-
-* Last Item
-```
+    ``` markdown
+    * First Item
+    * -""-
+    * Last Item
+    ```
 
-##### Matches
+    ##### Matches
 
-``` markdown
-* First Item
-* Second Item
-* Third Item
-* Last Item
-```
+    ``` markdown
+    * First Item
+    * Second Item
+    * Third Item
+    * Last Item
+    ```
 
-``` markdown
-* First Item
-* Last Item
-```
+    ``` markdown
+    * First Item
+    * Last Item
+    ```
 
-### Special Cases
+*
+    ### Special Cases
 
-#### Inline vs Block Level tokens
+    #### Inline vs Block Level tokens
 
-In order to specify a prompt for some inline content at the
-beginning of a paragraph, in order for the token to not be interpreted as a
-block element token, a block element token must precede it.
+    In order to specify a prompt for some inline content at the
+    beginning of a paragraph, in order for the token to not be interpreted as a
+    block element token, a block element token must precede it.
 
-#### Fenced Code Blocks
+    #### Fenced Code Blocks
 
-Due to the special formatting of Fenced Code Blocks, their block element tokens
-must be placed at the end of their info strings.
+    Due to the special formatting of Fenced Code Blocks, their block element tokens
+    must be placed at the end of their info strings.
 
-#### HTML Comments
+    #### HTML Comments
 
-HTML comments that appear as the last inline content in a block element will be
-ignored with respect to matching rules.
+    HTML comments that appear as the last inline content in a block element will be
+    ignored with respect to matching rules.
 
-### Special Case Examples
+    ### Special Case Examples
 
-#### Matching inline tokens as the first element of a block element
+    #### Matching inline tokens as the first element of a block element
 
-##### Rx
+    ##### Rx
 
-``` markdown
--!!- is my favorite color.
-```
-**Wrong**. The token is interpreted as a block element token.
+    ``` markdown
+    -!!- is my favorite color.
+    ```
+    **Wrong**. The token is interpreted as a block element token.
 
-##### Matches
+    ##### Matches
 
-``` markdown
- is my favorite color.
-```
+    ``` markdown
+     is my favorite color.
+    ```
 
-##### Rejects
+    ##### Rejects
 
-``` markdown
-Red is my favorite color.
-```
+    ``` markdown
+    Red is my favorite color.
+    ```
 
-##### Rx
+    ##### Rx
 
-``` markdown
--!!--!!- is my favorite color.
-```
-**Correct**. The first token is interpreted as a block element token, while the second
-is interpreted as a prompt for content.
+    ``` markdown
+    -!!--!!- is my favorite color.
+    ```
+    **Correct**. The first token is interpreted as a block element token, while the second
+    is interpreted as a prompt for content.
 
-##### Matches
+    ##### Matches
 
-``` markdown
-Red is my favorite color.
-```
+    ``` markdown
+    Red is my favorite color.
+    ```
 
-##### Rejects
+    ##### Rejects
 
-``` markdown
-is my favorite color.
-```
+    ``` markdown
+    is my favorite color.
+    ```
 
-#### Matching Block Level Tokens for Fenced Code blocks
+    #### Matching Block Level Tokens for Fenced Code blocks
 
-##### Rx
+    ##### Rx
 
-``` markdown
-~~~ -!!- rust
--!!-
-~~~
-```
+    ``` markdown
+    ~~~ -!!- rust
+    -!!-
+    ~~~
+    ```
 
-**Wrong**. The language info for the code block will not be interpreted
-correctly.
+    **Wrong**. The language info for the code block will not be interpreted
+    correctly.
 
-##### Rx
+    ##### Rx
 
-``` markdown
-~~~ rust -!!-
--!!-
-~~~
-```
+    ``` markdown
+    ~~~ rust -!!-
+    -!!-
+    ~~~
+    ```
 
-**Correct**. Indicates a mandatory code block with rust syntax.
+    **Correct**. Indicates a mandatory code block with rust syntax.
 
-##### Accepts
+    ##### Accepts
 
-``` markdown
-~~~ rust
-struct Foo {
-    bar: u32,
-    baz: u32
-};
-~~~
-```
+    ``` markdown
+    ~~~ rust
+    struct Foo {
+        bar: u32,
+        baz: u32
+    };
+    ~~~
+    ```
 
-#### Matching Block Elements with HTML comments.
+    #### Matching Block Elements with HTML comments.
 
-##### Rx
+    ##### Rx
 
-``` markdown
-# The Fresh -!!- of -!!- <!--Your title and locale-->
+    ``` markdown
+    # The Fresh -!!- of -!!- <!--Your title and locale-->
 
-Now this is a story all about how -!!- <!--Tell what happened to your life-->
-```
+    Now this is a story all about how -!!- <!--Tell what happened to your life-->
+    ```
 
-##### Matches
+    ##### Matches
 
-``` markdown
-# The Fresh Prince of Bel-Air
+    ``` markdown
+    # The Fresh Prince of Bel-Air
 
-Now this is a story all about how my life got flipped-turned upside down
-```
+    Now this is a story all about how my life got flipped-turned upside down
+    ```
 
-##### Rejects
+    ##### Rejects
 
-``` markdown
-# The Fresh Prince of Bel-Air <!--Your title and locale-->
+    ``` markdown
+    # The Fresh Prince of Bel-Air <!--Your title and locale-->
 
-Now this is a story all about how my life got flipped-turned upside down <!--Tell what happened to your life-->
-```
-Rejected because the comment in the Rx file is ignored, so the comment in the
-document will be treated as superfluous content.
+    Now this is a story all about how my life got flipped-turned upside down <!--Tell what happened to your life-->
+    ```
+    Rejected because the comment in the Rx file is ignored, so the comment in the
+    document will be treated as superfluous content.
 
 # License
 

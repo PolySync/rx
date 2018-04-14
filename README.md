@@ -30,6 +30,9 @@ along with Rx.  If not, see <http://www.gnu.org/licenses/>.
   * [Block Elements](#block-elements)
   * [Block Examples](#block-examples)
     + [Matching Mandatory Block Level tokens](#matching-mandatory-block-level-tokens)
+    + [Matching Optional Block Level tokens](#matching-optional-block-level-tokens)
+    + [Combining Block Level and Inline tokens](#combining-block-level-and-inline-tokens)
+    + [Matching Repeatable tokens](#matching-repeatable-tokens)
   * [Special Cases](#special-cases)
     + [Inline vs Block Level tokens](#inline-vs-block-level-tokens)
     + [Fenced Code Blocks](#fenced-code-blocks)
@@ -322,7 +325,6 @@ with.
     Their bottoms are made out of springs!
     ```
     > Rejected because of superflous paragraphs included at the end.
-
 
     #### Matching Optional Block Level tokens
 

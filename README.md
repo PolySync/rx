@@ -19,6 +19,26 @@ along with Rx.  If not, see <http://www.gnu.org/licenses/>.
 
 # Rx Specification
 
+- [Overview](#overview)
+- [Usage](#usage)
+  * [Inline Elements](#inline-elements)
+  * [Inline Examples](#inline-examples)
+    + [Matching Literals](#matching-literals)
+    + [Matching Mandatory tokens](#matching-mandatory-tokens)
+    + [Matching Optional Tokens](#matching-optional-tokens)
+    + [Matching Links](#matching-links)
+  * [Block Elements](#block-elements)
+  * [Block Examples](#block-examples)
+    + [Matching Mandatory Block Level tokens](#matching-mandatory-block-level-tokens)
+  * [Special Cases](#special-cases)
+    + [Inline vs Block Level tokens](#inline-vs-block-level-tokens)
+    + [Fenced Code Blocks](#fenced-code-blocks)
+    + [HTML Comments](#html-comments)
+  * [Special Case Examples](#special-case-examples)
+    + [Matching inline tokens as the first element of a block element](#matching-inline-tokens-as-the-first-element-of-a-block-element)
+    + [Matching Block Level Tokens for Fenced Code blocks](#matching-block-level-tokens-for-fenced-code-blocks)
+    + [Matching Block Elements with HTML comments.](#matching-block-elements-with-html-comments)
+
 ## Overview
 
 Rx is a DSL that extends Markdown for the purpose of defining a document in

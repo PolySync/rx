@@ -17,6 +17,8 @@ You should have received a copy of the GNU General Public License
 along with Rx.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
+# Rx Specification
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 

@@ -74,12 +74,6 @@ In CommonMark, inline elements contain textual content and formatting context.
 In addition to plain textual content, they include things such as links, inline
 code snippets, emphasis, etc. The full list of element types can be viewed in
 the [CommonMark Spec](https://spec.commonmark.org/0.27/#inlines).
-* Plain, textual content such as that within paragraphs and headings
-* Inline code blocks
-* Emphasis and Strong Emphasis
-* Links
-* Images
-* Inline HTML
 
 Rx tokens that appear in the context of inline elements represent prompts for
 arbitrary textual content to appear according to token type.

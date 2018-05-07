@@ -239,7 +239,7 @@ In Rx, block elements can be annotated with an Rx token to indicate a
 block-level matching rule. The placement of the token is usually at the
 beginning of the element on its own line, but varies slightly depending
 on the element type due to the constraints of CommonMark syntax. See the
-[Block Element Annotation](#block-element-annotation) section below for examples
+[Block Element Annotation](#block-element-annotation-examples) section below for examples
 of token placement for each different element type.
 
 Block elements with block-level tokens can also be classified as being

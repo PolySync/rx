@@ -32,13 +32,19 @@ along with Rx.  If not, see <http://www.gnu.org/licenses/>.
       - [Matching Optional Tokens](#matching-optional-tokens)
       - [Matching Links](#matching-links)
     - [Block Elements](#block-elements)
-    - [Block Examples](#block-examples)
+    - [Block Element Annotation Examples](#block-element-annotation-examples)
+      - [List Item](#list-item)
+      - [Block Quote](#block-quote)
+      - [Headings](#headings)
+      - [Paragraphs](#paragraphs)
+      - [Fenced Code Block](#fenced-code-block)
+      - [Indented Code Block](#indented-code-block)
+      - [HTML Blocks](#html-blocks)
+    - [Block Element Matching Examples](#block-element-matching-examples)
       - [Matching Mandatory Block Elements](#matching-mandatory-block-elements)
       - [Matching Optional Block Elements](#matching-optional-block-elements)
       - [Combining Block Level and Inline Tokens](#combining-block-level-and-inline-tokens)
       - [Matching Repeatable Tokens](#matching-repeatable-tokens)
-    - [Special Cases](#special-cases)
-      - [Matching Block Level Tokens for Fenced Code Blocks](#matching-block-level-tokens-for-fenced-code-blocks)
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -64,7 +70,10 @@ with.
 
 ### Inline Elements
 
-Inline elements consist of
+In CommonMark, inline elements contain textual content and formatting context.
+In addition to plain textual content, they include things such as links, inline
+code snippets, emphasis, etc. The full list of element types can be viewed in
+the [CommonMark Spec](https://spec.commonmark.org/0.27/#inlines).
 * Plain, textual content such as that within paragraphs and headings
 * Inline code blocks
 * Emphasis and Strong Emphasis
@@ -224,67 +233,305 @@ Please [visit](http:://scam.polysync.io) us on the web!
 
 > Rejected because the `s` was omitted from the protocol portion of the uri.
 
-
 ### Block Elements
 
-Block elements contain inline elements and in some cases other block elements.
-They consist of
-* List Items
-* Block Quotes
-* Paragraphs
-* Headings
-* Code Blocks
-* HTML Blocks
+In CommonMark, block elements are categorized into container blocks and leaf
+blocks. Leaf blocks such as Paragraphs or Headings contain inline elements.
+Container blocks such as List Items or Block Quotes can contain both leaf blocks
+and other container blocks. The full description of blocks elements and
+their types is available in the [CommonMark Spec](https://spec.commonmark.org/0.27/#container-blocks-and-leaf-blocks).
 
-If the first line of the block element is an Rx token by itself, then
-that token is considered a 'Block Level Token' and its meaning applies to the
-entire scope of that block.
+In Rx, block elements can be annotated with an Rx token to indicate a
+block-level matching rule. The placement of the token is usually at the
+beginning of the element on its own line, but varies slightly depending
+on the element type due to the constraints of CommonMark syntax. See the
+[Block Element Annotation](#block-element-annotation) section below for examples
+of token placement for each different element type.
+
+Block elements with block-level tokens can also be classified as being
+**Explicit**, or **Wildcard** types. Explicit types contain additional content,
+whereas Wildcard types contain just the block-level token annotation.
+
+The match constraints imposed by block-level tokens are as follows.
 
 * **Literal**
-    Strictly speaking, block elements do not directly contain Literals since all
-    textual content is conceptualized as being within inline elements. That
-    being said, the Literal content appearing within block elements must be
-    matched identically just like in the rule for inline Literal elements, but
-    the requirement of its presence or absence can be specified the presence of
-    the following Block Level Tokens.
+
+    A Literal Block Element is a block element without a block-level Rx token.
+    Literal elements are implicitly mandatory and all their contained elements
+    must match according to their individual match constraints in order for the
+    block as a whole to match.
 
 * `-!!-`
     **Mandatory**
 
-    - Element contains additional inline content or block elements on subsequent lines.
-        A block element of the same type **must** appear in this position in the
-        matching document. In order to be considered a match, all inline and and
+    - **Explicit:**
+
+        In order to match, a block element of the same type **must** appear in
+        this position in the matching document. In addition, all contained
         block elements contained within the scope of this element must also be
         matched according to their relevant matching rules.
-    - Element does not contain any additional content.
-        A block element of the same type **must** appear in this position in the
-        document however, the matching element may contain any arbitrary inline
-        and/or block elements.
+
+    - **Wildcard:**
+
+        In order to match, a block element of the same type **must** appear in
+        this position in the document however, it may contain any number of
+        arbitrary internal elements.
 
 * `-??-`
     **Optional**
 
-    - Element contains additional inline content or block elements on subsequent lines.
-        A block element of the same type **may** appear in this position in the
-        matching document but is not necessary. If an element does appear, in
-        order to be considerer a match, all inline and and block elements
-        contained within the scope of this element must also be matched
-        according to their relevant matching rules.
-    - Element does not contain any additional content.
-        A block element of the same type **may** appear in this position in the
-        document, but is not necessary. If an element does appear, it may
-        contain any arbitrary inline and/or block elements and still be
-        considered a match.
+    - **Explicit:**
+
+        In order to match, a block element of the same type **may** appear in
+        this position in the matching document but is not necessary for the
+        document as a whole to match. If the element does appear, all contained
+        elements must also be matched according to their respective constraints.
+
+    - **Wildcard**
+
+        In order to match, a block element of the same type **may** appear in
+        this position in the document, but is not necessary. If the element does
+        appear, it may contain any number of arbitrary internal elements.
 
 * `-""-`
     **Repeatable**
 
-    This token must appear in a block element that does not contain any other
-    block or inline elements and whose type matches the previous
-    block element at the same level in the document. It matches any number of block elements that
-    match the previous block element.
+    A block element may be specified as repeatable by placing an empty element
+    of the same type immediately following it that is annotated with a
+    block-level repeatable token. This indicates that any number of elements
+    that match the repeatable element **may** appear at this position in the
+    document. The matching constraints of the element marked as repeatable must
+    still be adhered to however, i.e. if it is marked as mandatory, then at
+    least one matching element must be present.
 
-### Block Examples
+
+### Block Element Annotation Examples
+
+#### [List Item](https://spec.commonmark.org/0.27/#list-items)
+
+##### Mandatory Explicit
+
+```markdown
+* -!!-
+* Internal Content
+```
+
+##### Mandatory Wildcard
+
+```markdown
+* -!!-
+```
+
+##### Optional Explicit
+
+```markdown
+* -??-
+* Internal Content
+```
+
+##### Optional Wildcard
+
+```markdown
+* -??-
+```
+
+##### Repeatable
+
+```markdown
+* Some Content
+* -""-
+```
+
+#### [Block Quote](https://spec.commonmark.org/0.27/#block-quotes)
+
+##### Mandatory Explicit
+
+```markdown
+> -!!-
+> Internal Content
+```
+
+##### Mandatory Wildcard
+
+```markdown
+> -!!-
+```
+
+##### Optional Explicit
+
+```markdown
+> -??-
+> Internal Content
+```
+
+##### Optional Wildcard
+
+```markdown
+> -??-
+```
+
+##### Repeatable
+
+```markdown
+> Some Content
+
+> -""-
+```
+
+#### [Headings](https://spec.commonmark.org/0.27/#atx-headings)
+
+##### Mandatory Explicit
+
+```markdown
+# -!!-
+# Heading Content
+```
+
+##### Mandatory Wildcard
+
+```markdown
+# -!!-
+```
+
+##### Optional Explicit
+
+```markdown
+# -??-
+# Heading Content
+```
+
+##### Optional Wildcard
+
+```markdown
+# -??-
+```
+
+##### Repeatable
+
+```markdown
+# Heading Content
+# -""-
+```
+
+#### [Paragraphs](https://spec.commonmark.org/0.27/#paragraphs)
+
+##### Mandatory Explicit
+
+```markdown
+-!!-
+Paragraph Content
+```
+
+##### Mandatory Wildcard
+
+```markdown
+-!!-
+```
+
+##### Optional Explicit
+
+```markdown
+-??-
+Paragraph Content
+```
+
+##### Optional Wildcard
+
+```markdown
+-??-
+```
+
+##### Repeatable
+
+```markdown
+Paragraph Content
+
+-""-
+```
+
+#### [Fenced Code Block](https://spec.commonmark.org/0.27/#fenced-code-blocks)
+
+##### Mandatory Explicit
+
+```markdown
+~~~-!!-
+Code Block Content
+~~~
+```
+
+##### Mandatory Wildcard
+
+```markdown
+~~~-!!-
+~~~
+```
+
+##### Optional Explicit
+
+```markdown
+~~~-??-
+Code Block Content
+~~~
+```
+
+##### Optional Wildcard
+
+```markdown
+~~~-??-
+~~~
+```
+
+##### Repeatable
+
+```markdown
+~~~
+Code Block Content
+~~~
+~~~-""-
+~~~
+```
+
+#### [Indented Code Block](https://spec.commonmark.org/0.27/#indented-code-blocks)
+
+##### Mandatory Explicit
+
+```markdown
+    -!!-
+    Code Block Content
+```
+
+##### Mandatory Wildcard
+
+```markdown
+    -!!-
+```
+
+##### Optional Explicit
+
+```markdown
+    -??-
+    Code Block Content
+```
+
+##### Optional Wildcard
+
+```markdown
+    -??-
+```
+
+##### Repeatable
+
+```markdown
+    Code Block Content
+
+    -""-
+```
+
+#### [HTML Blocks](https://spec.commonmark.org/0.27/#html-blocks)
+
+Block level tokens are not currently supported for HTML Blocks.
+
+### Block Element Matching Examples
 
 #### Matching Mandatory Block Elements
 
@@ -298,7 +545,7 @@ entire scope of that block.
 Is tiggers are wonderful things!
 ```
 
-which in this case is equivalent to
+or
 
 ```markdown
 # The wonderful thing about tiggers
@@ -446,31 +693,6 @@ An optional closing paragraph that must say this if present.
 ```markdown
 * First Item
 * Last Item
-```
-
-### Special Cases
-
-#### Matching Block Level Tokens for Fenced Code Blocks
-
-To specify a block level token for a fenced code block, place it at the beginning of the info string.
-
-##### Rx
-
-```markdown
-~~~-!!-rust
--!!-
-~~~
-```
-
-##### Accepts
-
-```markdown
-~~~rust
-struct Foo {
-    bar: u32,
-    baz: u32
-};
-~~~
 ```
 
 # License

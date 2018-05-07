@@ -261,9 +261,9 @@ The match constraints imposed by block-level tokens are as follows.
     - **Explicit:**
 
         In order to match, a block element of the same type **must** appear in
-        this position in the matching document. In addition, all contained
-        block elements contained within the scope of this element must also be
-        matched according to their relevant matching rules.
+        this position in the matching document. In addition, all block elements 
+        contained within the scope of this element must also be matched
+        according to their relevant matching constraints.
 
     - **Wildcard:**
 

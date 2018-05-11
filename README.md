@@ -28,23 +28,70 @@ along with Rx.  If not, see <http://www.gnu.org/licenses/>.
     - [Inline Elements](#inline-elements)
     - [Inline Examples](#inline-examples)
       - [Matching Literals](#matching-literals)
+        - [Rx](#rx)
+        - [Matches](#matches)
+        - [Rejects](#rejects)
       - [Matching Mandatory tokens](#matching-mandatory-tokens)
+        - [Rx](#rx-1)
+        - [Matches](#matches-1)
+        - [Rejects](#rejects-1)
       - [Matching Optional Tokens](#matching-optional-tokens)
+        - [Rx](#rx-2)
+        - [Matches](#matches-2)
+        - [Rejects](#rejects-2)
       - [Matching Links](#matching-links)
+        - [Rx](#rx-3)
+        - [Matches](#matches-3)
+        - [Rejects](#rejects-3)
     - [Block Elements](#block-elements)
     - [Block Element Annotation Examples](#block-element-annotation-examples)
       - [List Item](#list-item)
+        - [Mandatory Explicit](#mandatory-explicit)
+        - [Mandatory Wildcard](#mandatory-wildcard)
+        - [Optional Explicit](#optional-explicit)
+        - [Optional Wildcard](#optional-wildcard)
+        - [Repeatable](#repeatable)
       - [Block Quote](#block-quote)
+        - [Mandatory Explicit](#mandatory-explicit-1)
+        - [Mandatory Wildcard](#mandatory-wildcard-1)
+        - [Optional Explicit](#optional-explicit-1)
+        - [Optional Wildcard](#optional-wildcard-1)
+        - [Repeatable](#repeatable-1)
       - [Headings](#headings)
+        - [Mandatory Explicit](#mandatory-explicit-2)
+        - [Mandatory Wildcard](#mandatory-wildcard-2)
+        - [Optional Explicit](#optional-explicit-2)
+        - [Optional Wildcard](#optional-wildcard-2)
+        - [Repeatable](#repeatable-2)
       - [Paragraphs](#paragraphs)
+        - [Mandatory Explicit](#mandatory-explicit-3)
+        - [Mandatory Wildcard](#mandatory-wildcard-3)
+        - [Optional Explicit](#optional-explicit-3)
+        - [Optional Wildcard](#optional-wildcard-3)
+        - [Repeatable](#repeatable-3)
       - [Fenced Code Block](#fenced-code-block)
+        - [Mandatory Explicit](#mandatory-explicit-4)
+        - [Mandatory Wildcard](#mandatory-wildcard-4)
+        - [Optional Explicit](#optional-explicit-4)
+        - [Optional Wildcard](#optional-wildcard-4)
+        - [Repeatable](#repeatable-4)
       - [Indented Code Block](#indented-code-block)
       - [HTML Blocks](#html-blocks)
     - [Block Element Matching Examples](#block-element-matching-examples)
       - [Matching Mandatory Block Elements](#matching-mandatory-block-elements)
+        - [Rx](#rx-4)
+        - [Matches](#matches-4)
+        - [Rejects](#rejects-4)
       - [Matching Optional Block Elements](#matching-optional-block-elements)
+        - [Rx](#rx-5)
+        - [Matches](#matches-5)
       - [Combining Block Level and Inline Tokens](#combining-block-level-and-inline-tokens)
+        - [Rx](#rx-6)
+        - [Matches](#matches-6)
+        - [Rejects](#rejects-5)
       - [Matching Repeatable Tokens](#matching-repeatable-tokens)
+        - [Rx](#rx-7)
+        - [Matches](#matches-7)
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -261,7 +308,7 @@ The match constraints imposed by block-level tokens are as follows.
     - **Explicit:**
 
         In order to match, a block element of the same type **must** appear in
-        this position in the matching document. In addition, all block elements 
+        this position in the matching document. In addition, all block elements
         contained within the scope of this element must also be matched
         according to their relevant matching constraints.
 
@@ -487,43 +534,14 @@ Code Block Content
 
 #### [Indented Code Block](https://spec.commonmark.org/0.27/#indented-code-blocks)
 
-##### Mandatory Explicit
-
-```markdown
-    -!!-
-    Code Block Content
-```
-
-##### Mandatory Wildcard
-
-```markdown
-    -!!-
-```
-
-##### Optional Explicit
-
-```markdown
-    -??-
-    Code Block Content
-```
-
-##### Optional Wildcard
-
-```markdown
-    -??-
-```
-
-##### Repeatable
-
-```markdown
-    Code Block Content
-
-    -""-
-```
+Block level tokens are not supported for indented code blocks due to the
+limitations imposed by `libcmark` the current canonical CommonMark parser. This
+may be addressed in future version of the spec.
 
 #### [HTML Blocks](https://spec.commonmark.org/0.27/#html-blocks)
 
-Block level tokens are not currently supported for HTML Blocks.
+Block level tokens are not supported for HTML Blocks. This may be
+addressed in future versions of the spec.
 
 ### Block Element Matching Examples
 

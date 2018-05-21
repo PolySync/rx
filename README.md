@@ -1,7 +1,7 @@
 <!--
 © 2018, Devin Smith <dsmith@polysync.io>, Nathan Äschbacher <naschbacher@polysync.io>
 
-This file is part of Rx
+This file is part of Rx.
 
 Rx is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -133,7 +133,7 @@ arbitrary textual content to appear according to token type.
     **Mandatory**
 
     Some content must be inserted here. Each mandatory token must match with at
-    least one non-whitespace characters, so adjacent mandatory tokens must be
+    least one non-whitespace character, so adjacent mandatory tokens must be
     matched with content whose length is greater than or equal to the number of
     tokens.
 
@@ -220,7 +220,7 @@ The dentist because our teeth are full of cavities.
 ##### Rx
 
 ```markdown
-Seeking a -??-qualified applicant for our remote -??- offices.
+Seeking a -??- qualified applicant for our remote -??- offices.
 ```
 
 ##### Matches
@@ -315,7 +315,7 @@ The match constraints imposed by block-level tokens are as follows.
     - **Wildcard:**
 
         In order to match, a block element of the same type **must** appear in
-        this position in the document however, it may contain any number of
+        this position in the document. However, it may contain any number of
         arbitrary internal elements.
 
 * `-??-`
@@ -331,7 +331,7 @@ The match constraints imposed by block-level tokens are as follows.
     - **Wildcard**
 
         In order to match, a block element of the same type **may** appear in
-        this position in the document, but is not necessary. If the element does
+        this position in the document but is not necessary. If the element does
         appear, it may contain any number of arbitrary internal elements.
 
 * `-""-`
@@ -341,8 +341,8 @@ The match constraints imposed by block-level tokens are as follows.
     of the same type immediately following it that is annotated with a
     block-level repeatable token. This indicates that any number of elements
     that match the repeatable element **may** appear at this position in the
-    document. The matching constraints of the element marked as repeatable must
-    still be adhered to however, i.e. if it is marked as mandatory, then at
+    document. However, the matching constraints of the element marked as repeatable must
+    still be adhered to. For example, if it is marked as mandatory, then at
     least one matching element must be present.
 
 

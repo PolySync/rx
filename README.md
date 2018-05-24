@@ -494,43 +494,43 @@ Paragraph Content
 
 ##### Mandatory Explicit
 
-```markdown
-~~~-!!-
+~~~markdown
+```-!!-
 Code Block Content
-~~~
 ```
+~~~
 
 ##### Mandatory Wildcard
 
-```markdown
-~~~-!!-
-~~~
+~~~markdown
+```-!!-
 ```
+~~~
 
 ##### Optional Explicit
 
-```markdown
-~~~-??-
+~~~markdown
+```-??-
 Code Block Content
-~~~
 ```
+~~~
 
 ##### Optional Wildcard
 
-```markdown
-~~~-??-
-~~~
+~~~markdown
+```-??-
 ```
+~~~
 
 ##### Repeatable
 
-```markdown
-~~~
-Code Block Content
-~~~
-~~~-""-
-~~~
+~~~markdown
 ```
+Code Block Content
+```
+```-""-
+```
+~~~
 
 #### [Indented Code Block](https://spec.commonmark.org/0.27/#indented-code-blocks)
 

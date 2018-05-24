@@ -28,70 +28,23 @@ along with Rx.  If not, see <http://www.gnu.org/licenses/>.
     - [Inline Elements](#inline-elements)
     - [Inline Examples](#inline-examples)
       - [Matching Literals](#matching-literals)
-        - [Rx](#rx)
-        - [Matches](#matches)
-        - [Rejects](#rejects)
       - [Matching Mandatory tokens](#matching-mandatory-tokens)
-        - [Rx](#rx-1)
-        - [Matches](#matches-1)
-        - [Rejects](#rejects-1)
       - [Matching Optional Tokens](#matching-optional-tokens)
-        - [Rx](#rx-2)
-        - [Matches](#matches-2)
-        - [Rejects](#rejects-2)
       - [Matching Links](#matching-links)
-        - [Rx](#rx-3)
-        - [Matches](#matches-3)
-        - [Rejects](#rejects-3)
     - [Block Elements](#block-elements)
     - [Block Element Annotation Examples](#block-element-annotation-examples)
       - [List Item](#list-item)
-        - [Mandatory Explicit](#mandatory-explicit)
-        - [Mandatory Wildcard](#mandatory-wildcard)
-        - [Optional Explicit](#optional-explicit)
-        - [Optional Wildcard](#optional-wildcard)
-        - [Repeatable](#repeatable)
       - [Block Quote](#block-quote)
-        - [Mandatory Explicit](#mandatory-explicit-1)
-        - [Mandatory Wildcard](#mandatory-wildcard-1)
-        - [Optional Explicit](#optional-explicit-1)
-        - [Optional Wildcard](#optional-wildcard-1)
-        - [Repeatable](#repeatable-1)
       - [Headings](#headings)
-        - [Mandatory Explicit](#mandatory-explicit-2)
-        - [Mandatory Wildcard](#mandatory-wildcard-2)
-        - [Optional Explicit](#optional-explicit-2)
-        - [Optional Wildcard](#optional-wildcard-2)
-        - [Repeatable](#repeatable-2)
       - [Paragraphs](#paragraphs)
-        - [Mandatory Explicit](#mandatory-explicit-3)
-        - [Mandatory Wildcard](#mandatory-wildcard-3)
-        - [Optional Explicit](#optional-explicit-3)
-        - [Optional Wildcard](#optional-wildcard-3)
-        - [Repeatable](#repeatable-3)
       - [Fenced Code Block](#fenced-code-block)
-        - [Mandatory Explicit](#mandatory-explicit-4)
-        - [Mandatory Wildcard](#mandatory-wildcard-4)
-        - [Optional Explicit](#optional-explicit-4)
-        - [Optional Wildcard](#optional-wildcard-4)
-        - [Repeatable](#repeatable-4)
       - [Indented Code Block](#indented-code-block)
       - [HTML Blocks](#html-blocks)
     - [Block Element Matching Examples](#block-element-matching-examples)
       - [Matching Mandatory Block Elements](#matching-mandatory-block-elements)
-        - [Rx](#rx-4)
-        - [Matches](#matches-4)
-        - [Rejects](#rejects-4)
       - [Matching Optional Block Elements](#matching-optional-block-elements)
-        - [Rx](#rx-5)
-        - [Matches](#matches-5)
       - [Combining Block Level and Inline Tokens](#combining-block-level-and-inline-tokens)
-        - [Rx](#rx-6)
-        - [Matches](#matches-6)
-        - [Rejects](#rejects-5)
       - [Matching Repeatable Tokens](#matching-repeatable-tokens)
-        - [Rx](#rx-7)
-        - [Matches](#matches-7)
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -128,6 +81,9 @@ arbitrary textual content to appear according to token type.
 * **Literal**
     Any textual content that is not an Rx token or a syntactic element of
     Markdown must be matched with an identical section of text.
+
+    The exception to this is inline HTML which will be ignored for the purposes
+    of matching. Feel free to use them as placeholders or comments.
 
 * `-!!-`
     **Mandatory**
@@ -301,6 +257,9 @@ The match constraints imposed by block-level tokens are as follows.
     Literal elements are implicitly mandatory and all their contained elements
     must match according to their individual match constraints in order for the
     block as a whole to match.
+
+    The exception to this is HTML Blocks. These will be ignored. Feel free to
+    use them as placeholders or comments.
 
 * `-!!-`
     **Mandatory**
@@ -540,8 +499,7 @@ may be addressed in future version of the spec.
 
 #### [HTML Blocks](https://spec.commonmark.org/0.27/#html-blocks)
 
-Block level tokens are not supported for HTML Blocks. This may be
-addressed in future versions of the spec.
+HTML Blocks are ignored and therefore do not support annotation.
 
 ### Block Element Matching Examples
 
